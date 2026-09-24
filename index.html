@@ -1,0 +1,917 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Dayce Brands</title>
+<style>
+  :root{
+    --blue:#0033cc; --blue-dark:#00229c; --blue-light:#e8edff;
+    --ink:#141414; --gray:#5a5f6b; --line:#e3e6ee; --white:#ffffff;
+    --radius:10px;
+    box-sizing:border-box;
+    padding-top:env(safe-area-inset-top,0px);
+    padding-bottom:env(safe-area-inset-bottom,0px);
+  }
+  *{
+    box-sizing:border-box;
+  }
+  html{
+    scroll-padding-top:env(safe-area-inset-top,0px);
+  }
+  html,body{height:100%;}
+  body{
+    margin:0;
+    font-family:"Segoe UI",Inter,Helvetica,Arial,sans-serif;
+    color:var(--ink);
+    background:var(--white);
+  }
+  a{
+    text-decoration:none;
+    color:inherit;
+  }
+  img{
+    max-width:100%;
+    display:block;
+  }
+  .wrap{
+    max-width:1140px;
+    margin:0 auto;
+    padding:0 24px;
+  }
+
+  /* NAV */
+  header.site{
+    position:sticky;
+    top:0;
+    z-index:50;
+    background:var(--white);
+    border-bottom:1px solid var(--line);
+    padding-top:env(safe-area-inset-top,0px);
+  }
+  .navbar{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:16px 24px;
+    max-width:1140px;
+    margin:0 auto;
+    gap:16px;
+  }
+  .brand{
+    display:flex;
+    align-items:center;
+    gap:8px;
+  }
+  .brand .logo-svg{
+    width:34px;
+    height:34px;
+    flex:none;
+  }
+  .brand .wordmark{
+    display:flex;
+    flex-direction:column;
+    line-height:1;
+  }
+  .brand .wordmark b{
+    font-weight:800;
+    font-size:1.05rem;
+    letter-spacing:.02em;
+    color:var(--ink);
+  }
+  .brand .wordmark small{
+    font-size:.52rem;
+    font-weight:700;
+    letter-spacing:.25em;
+    color:var(--blue);
+    margin-top:2px;
+  }
+  footer .brand .wordmark b{
+    color:#fff;
+  }
+  nav.links{
+    display:flex;
+    gap:28px;
+  }
+  nav.links button{
+    background:none;
+    border:none;
+    font:inherit;
+    font-weight:600;
+    font-size:.95rem;
+    color:var(--gray);
+    cursor:pointer;
+    padding:6px 2px;
+    border-bottom:2px solid transparent;
+  }
+  nav.links button.active,nav.links button:hover{
+    color:var(--blue);
+    border-color:var(--blue);
+  }
+  .searchbox{
+    display:flex;
+    align-items:center;
+    border:1px solid var(--line);
+    border-radius:999px;
+    padding:6px 14px;
+    gap:8px;
+    background:#f6f7fb;
+  }
+  .searchbox input{
+    border:none;
+    background:none;
+    outline:none;
+    font:inherit;
+    width:140px;
+  }
+  .navtoggle{
+    display:none;
+    background:none;
+    border:1px solid var(--line);
+    border-radius:8px;
+    padding:8px 10px;
+    cursor:pointer;
+  }
+  @media(max-width:860px){
+    nav.links{
+      position:absolute;
+      top:100%;left:0;
+      right:0;
+      background:var(--white);
+      flex-direction:column;
+      gap:0;
+      border-bottom:1px solid var(--line);
+      display:none;
+      padding:8px 24px 16px;
+    }
+    nav.links.open{
+      display:flex;
+    }
+    nav.links button{
+      padding:12px 0;
+      border-bottom:1px solid var(--line);
+      width:100%;
+      text-align:left;
+    }
+    .searchbox{
+      display:none;
+    }
+    .navtoggle{
+      display:block;
+    }
+    header.site{
+      position:sticky;
+    }
+  }
+
+  /* HERO */
+  .hero{
+    background:linear-gradient(135deg,var(--blue),var(--blue-dark));
+    color:#fff;
+    padding:64px 0 72px;
+  }
+  .hero .wrap{display:grid;
+    grid-template-columns:1.1fr .9fr;
+    gap:40px;
+    align-items:center;
+  }
+  @media(max-width:800px){
+    .hero .wrap{
+      grid-template-columns:1fr;
+    }}
+  .hero h1{
+    font-size:clamp(2rem,5vw,3rem);
+    line-height:1.1;
+    margin:0 0 16px;
+    font-weight:800;
+    letter-spacing:-.02em;
+  }
+  .hero p{
+    font-size:1.05rem;
+    color:#dfe6ff;
+    margin:0 0 28px;
+    max-width:46ch;
+  }
+  .cta{
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+    background:#fff;
+    color:var(--blue);
+    font-weight:700;
+    padding:14px 26px;
+    border-radius:8px;
+    border:none;
+    font-size:1rem;
+    cursor:pointer;
+  }
+  .cta:hover{background:var(--blue-light);}
+  .hero-card{
+    background:rgba(255,255,255,.08);
+    border:1px solid rgba(255,255,255,.25);
+    border-radius:16px;
+    padding:32px;
+    text-align:center;
+  }
+  .hero-card .blob{
+    width:100%;
+    aspect-ratio:4/3;
+    border-radius:12px;
+    background:
+    radial-gradient(circle at 30% 30%, #7aa0ff 0%, transparent 45%),
+    radial-gradient(circle at 70% 60%, #ffffff 0%, transparent 40%),
+    linear-gradient(160deg,#3355e0,#1a2f9c);margin-bottom:18px;
+  }
+  .hero-card h3{
+    margin:0 0 6px;
+    font-size:1.2rem;
+  }
+  .hero-card p{
+    color:#dfe6ff;
+    font-size:.9rem;
+    margin:0;
+  }
+
+  section{padding:64px 0;}
+  .section-head{
+    max-width:640px;
+    margin:0 auto 40px;
+    text-align:center;
+  }
+  .section-head h2{
+    font-size:1.9rem;
+    margin:0 0 10px;
+    font-weight:800;
+    letter-spacing:-.01em;
+  }
+  .section-head p{
+    color:var(--gray);
+    margin:0;
+  }
+
+  .grid4{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);gap:20px;
+  }
+  .grid3{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:24px;
+  }
+  .grid2{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:36px;
+  }
+  @media(max-width:900px){
+    .grid4{grid-template-columns:repeat(2,1fr);
+    }
+    .grid3{grid-template-columns:1fr 1fr;
+    }
+    .grid2{grid-template-columns:1fr;}
+  }
+  @media(max-width:560px){
+    .grid4{grid-template-columns:1fr 1fr;}
+    .grid3{grid-template-columns:1fr;}
+  }
+
+  .card{
+    background:var(--white);
+    border:1px solid var(--line);
+    border-radius:var(--radius);
+    padding:24px;
+  }
+  .icon-tile{
+    width:46px;
+    height:46px;
+    border-radius:10px;
+    background:var(--blue-light);
+    color:var(--blue);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-weight:800;
+    font-size:1.3rem;margin-bottom:14px;
+  }
+  .card h3{
+    margin:0 0 8px;
+    font-size:1.05rem;
+  }
+  .card p{
+    margin:0;
+    color:var(--gray);
+    font-size:.92rem;
+    line-height:1.5;
+  }
+
+  .band{
+    background:#f6f7fb;
+  }
+  .why-grid{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:20px;
+  }
+  @media(max-width:900px){
+    .why-grid{grid-template-columns:1fr 1fr;}
+  }
+  @media(max-width:560px){
+    .why-grid{grid-template-columns:1fr;}
+  }
+  .why-item{
+    text-align:center;
+  }
+  .why-item .num{
+    color:var(--blue);
+    font-weight:800;
+    font-size:1.4rem;
+    margin-bottom:6px;
+  }
+
+  footer{
+    background:#0a0f2c;
+    color:#c9cfe8;
+    padding:48px 0 28px;
+  }
+  .foot-grid{
+    display:grid;
+    grid-template-columns:2fr 1fr 1fr;
+    gap:32px;
+    margin-bottom:32px;
+  }
+  @media(max-width:700px){
+    .foot-grid{grid-template-columns:1fr;}
+  }
+  footer h4{
+    color:#fff;
+    font-size:.95rem;
+    margin:0 0 14px;
+  }
+  footer ul{
+    list-style:none;
+    margin:0;
+    padding:0;
+  }
+  footer li{
+    margin-bottom:8px;
+    font-size:.9rem;
+  }
+  footer li a:hover{
+    color:#fff;
+  }
+  .social{
+    display:flex;
+    gap:12px;
+    margin-top:14px;
+  }
+  .social a{
+    width:36px;
+    height:36px;
+    border-radius:999px;
+    border:1px solid #333a5c;
+    display:flex;align-items:center;
+    justify-content:center;
+    font-size:.85rem;
+  }
+  .foot-bottom{
+    border-top:1px solid #232a4f;
+    padding-top:20px;
+    font-size:.82rem;
+    text-align:center;
+    color:#7f87ad;
+  }
+
+  /* buttons general */
+  .btn-outline{
+    display:inline-flex;
+    align-items:center;
+    gap:6px;
+    border:1px solid var(--blue);
+    color:var(--blue);background:none;
+    font-weight:700;
+    padding:9px 16px;
+    border-radius:8px;
+    font-size:.9rem;
+    cursor:pointer;
+  }
+  .btn-outline:hover{
+    background:var(--blue-light);
+  }
+
+  /* ABOUT */
+  .about-hero{
+    background:var(--blue-light);
+    padding:56px 0;
+    text-align:center;
+  }
+  .about-hero h1{
+    font-size:clamp(1.8rem,4vw,2.5rem);
+    margin:0 0 12px;
+    color:var(--blue-dark);
+  }
+  .about-hero p{
+    max-width:600px;
+    margin:0 auto;
+    color:var(--gray);
+  }
+  .story{
+    max-width:760px;
+    margin:0 auto;
+  }
+  .story h2{
+    font-size:1.5rem;
+    margin-bottom:14px;
+  }
+  .story p{
+    color:var(--gray);
+    line-height:1.7;
+    margin-bottom:14px;
+  }
+  .mvv .card{
+    text-align:left;
+  }
+
+  /* SERVICES */
+  .service-card{
+    display:flex;
+    flex-direction:column;
+    height:100%;
+  }
+  .service-card .fill{
+    flex:1;
+  }
+  .service-card button{
+    margin-top:16px;
+    align-self:flex-start;
+  }
+
+  /* PORTFOLIO */
+  .filters{
+    display:flex;
+    gap:10px;
+    flex-wrap:wrap;
+    justify-content:center;
+    margin-bottom:32px;
+  }
+  .filter-btn{
+    border:1px solid var(--line);
+    background:var(--white);
+    padding:8px 18px;
+    border-radius:999px;
+    font:inherit;
+    font-weight:600;
+    font-size:.85rem;
+    cursor:pointer;
+    color:var(--gray);
+  }
+  .filter-btn.active{
+    background:var(--blue);
+    color:#fff;
+    border-color:var(--blue);
+  }
+  .port-grid{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:22px;
+  }
+  @media(max-width:900px){
+    .port-grid{grid-template-columns:1fr 1fr;}
+  }
+  @media(max-width:560px){
+    .port-grid{grid-template-columns:1fr;}
+  }
+  .port-item{
+    border:1px solid var(--line);
+    border-radius:var(--radius);
+    overflow:hidden;
+    background:#fff;
+  }
+  .port-thumb{
+    aspect-ratio:4/3;
+    background:linear-gradient(135deg,#cdd8ff,#8fa3ff);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    color:#1a2f9c;
+    font-weight:800;
+    font-size:.9rem;
+  }
+  .port-meta{
+    padding:14px 16px;
+  }
+  .port-meta .tag{
+    font-size:.72rem;
+    font-weight:700;
+    color:var(--blue);
+    text-transform:uppercase;
+    letter-spacing:.04em;
+  }
+  .port-meta h4{
+    margin:4px 0 0;
+    font-size:.95rem;
+  }
+  .hide{display:none !important;}
+
+  /* CONTACT */
+  .contact-grid{
+    display:grid;
+    grid-template-columns:1.3fr .9fr;
+    gap:40px;
+  }
+  @media(max-width:800px){
+    .contact-grid{grid-template-columns:1fr;}
+  }
+  form.contact{
+    display:flex;
+    flex-direction:column;
+    gap:16px;
+  }
+  .field{
+    display:flex;
+    flex-direction:column;
+    gap:6px;
+  }
+  .field label{
+    font-size:.85rem;
+    font-weight:600;
+    color:var(--ink);
+  }
+  .field input,.field textarea,.field select{
+    border:1px solid var(--line);
+    border-radius:8px;
+    padding:12px 14px;
+    font:inherit;
+    outline:none;
+    background:#fafbfd;
+  }
+  .field input:focus,.field textarea:focus,.field select:focus{border-color:var(--blue);}
+  form.contact button{align-self:flex-start;}
+  .info-side .card{margin-bottom:16px;}
+  .info-side .row{
+    display:flex;
+    gap:10px;margin-bottom:10px;
+    font-size:.9rem;
+  }
+  .info-side .row b{
+    min-width:64px;
+    color:var(--gray);
+    font-weight:600;
+  }
+  .toast{
+    position:fixed;
+    bottom:24px;
+    left:50%;
+    transform:translateX(-50%);
+    background:var(--ink);
+    color:#fff;
+    padding:12px 20px;
+    border-radius:8px;
+    font-size:.9rem;
+    opacity:0;
+    pointer-events:none;
+    transition:opacity .25s;
+  }
+  .toast.show{opacity:1;}
+
+  .view{display:none;}
+  .view.active{display:block;}
+
+  :root{--focus:2px solid var(--blue);}
+  button:focus-visible,a:focus-visible,input:focus-visible,textarea:focus-visible,select:focus-visible{
+    outline:var(--focus);
+    outline-offset:2px;
+    }
+</style>
+</head>
+<body>
+
+<header class="site">
+  <div class="navbar">
+    <div class="brand">
+      <svg class="logo-svg" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <path d="M20 15 L20 85 L52 85 C75 85 88 68 88 50 C88 32 75 15 52 15 Z" fill="none" stroke="#0033cc" stroke-width="7"/>
+        <path d="M34 28 L34 72 L52 72 L74 50 L52 28 Z" fill="#141414"/>
+      </svg>
+      <div class="wordmark"><b>DAYCE</b><small>BRANDS</small></div>
+    </div>
+    <button class="navtoggle" id="navToggle" aria-label="Menu">☰</button>
+    <nav class="links" id="navLinks">
+      <button data-view="home" class="active">HOME</button>
+      <button data-view="about">ABOUT</button>
+      <button data-view="services">SERVICES</button>
+      <button data-view="portfolio">PORTFOLIO</button>
+      <button data-view="contact">CONTACT</button>
+    </nav>
+    <div class="searchbox">
+      <span>🔍</span><input id="searchInput" placeholder="Search...">
+    </div>
+  </div>
+</header>
+
+<main>
+
+<!-- HOME -->
+<div class="view active" id="view-home">
+  <section class="hero">
+    <div class="wrap">
+      <div>
+        <h1>Creative Ideas. Powerful Design.</h1>
+        <p>Dayce Brands turns your ideas into standout logos, prints and brand identities — built to get you noticed in Kampala and beyond.</p>
+        <button class="cta" data-view="services">Get Started →</button>
+      </div>
+      <div class="hero-card">
+        <div class="blob"></div>
+        <h3>Creativity Never Stops</h3>
+        <p>Fresh design, delivered on time, every time.</p>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <div class="section-head"><h2>What We Do</h2><p>A full creative toolkit for your brand, under one roof.</p></div>
+      <div class="grid4">
+        <div class="card"><div class="icon-tile">✒</div><h3>Graphic Designing</h3><p>Logos, Fliers, Posters, Banners and More.</p></div>
+        <div class="card"><div class="icon-tile">🖨</div><h3>Printing</h3><p>High quality prints for all your needs.</p></div>
+        <div class="card"><div class="icon-tile">🤝</div><h3>Branding</h3><p>Give your business a unique look.</p></div>
+        <div class="card"><div class="icon-tile">☰</div><h3>More</h3><p>T-Shirt, Stickers, Binding and More.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap grid2" style="align-items:center;">
+      <div>
+        <svg viewBox="0 0 100 100" style="width:70px;height:70px;" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <path d="M20 15 L20 85 L52 85 C75 85 88 68 88 50 C88 32 75 15 52 15 Z" fill="none" stroke="#0033cc" stroke-width="7"/>
+          <path d="M34 28 L34 72 L52 72 L74 50 L52 28 Z" fill="#141414"/>
+        </svg>
+      </div>
+      <div>
+        <h2 style="margin:0 0 10px;font-size:1.5rem;">About Dayce Brands</h2>
+        <p style="color:var(--gray);margin:0 0 16px;">We are a creative design and printing studio dedicated to helping businesses and individuals turn ideas into visual reality.</p>
+        <button class="btn-outline" data-view="about">Learn more →</button>
+      </div>
+    </div>
+  </section>
+
+  <section class="band">
+    <div class="wrap">
+      <div class="section-head"><h2>Portfolio</h2><p>A look at some of our recent works.</p></div>
+      <div class="grid4">
+        <div class="port-item"><div class="port-thumb" style="background:linear-gradient(135deg,#fff,#f3f6ff);color:#0033cc;">Dayce Fruits</div><div class="port-meta" style="text-align:center;"><h4>Logo</h4></div></div>
+        <div class="port-item"><div class="port-thumb" style="background:#fff;color:#141414;">Supreme Fashions</div><div class="port-meta" style="text-align:center;"><h4>Posters</h4></div></div>
+        <div class="port-item"><div class="port-thumb" style="background:linear-gradient(135deg,#ff3b30,#ffb300);color:#fff;">Teo Hotel</div><div class="port-meta" style="text-align:center;"><h4>Banners</h4></div></div>
+        <div class="port-item"><div class="port-thumb" style="background:linear-gradient(135deg,#ffd200,#ffb300);color:#141414;">Pine Apple</div><div class="port-meta" style="text-align:center;"><h4>Branding</h4></div></div>
+      </div>
+      <div style="text-align:center;margin-top:24px;"><button class="btn-outline" data-view="portfolio">View full portfolio →</button></div>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <div class="section-head"><h2>Why Choose Us?</h2></div>
+      <div class="why-grid">
+        <div class="why-item"><div class="num">01</div><h4>Quality Work</h4></div>
+        <div class="why-item"><div class="num">02</div><h4>Creative Solutions</h4></div>
+        <div class="why-item"><div class="num">03</div><h4>On Time Delivery</h4></div>
+        <div class="why-item"><div class="num">04</div><h4>Reliable Support</h4></div>
+      </div>
+      <div style="text-align:center;margin-top:40px;">
+        <h3 style="margin:0 0 6px;">Ready to Work With Us?</h3>
+        <p style="color:var(--gray);margin:0 0 18px;">Let's bring your ideas to life.</p>
+        <button class="cta" style="background:var(--blue);color:#fff;" data-view="contact">Contact Us →</button>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- ABOUT -->
+<div class="view" id="view-about">
+  <section class="about-hero">
+    <div class="wrap">
+      <h1>About Us</h1>
+      <p>More than just a brand, we are your creative partner.</p>
+    </div>
+  </section>
+  <section>
+    <div class="wrap story">
+      <h2>Our Story</h2>
+      <p>Dayce Brands started with a simple idea: to help brands and individuals express themselves through creative design and high quality printing. What began as a small project has now become a big brand known for creativity, quality and reliability.</p>
+    </div>
+  </section>
+  <section class="band">
+    <div class="wrap grid3 mvv">
+      <div class="card"><h3>Our Mission</h3><p>To provide creative designs and high quality printing.</p></div>
+      <div class="card"><h3>Our Vision</h3><p>To be the leading creative brand in Kampala.</p></div>
+      <div class="card"><h3>Our Core Values</h3><p>Creative, Quality, Integrity, Customer focus.</p></div>
+    </div>
+  </section>
+</div>
+
+<!-- SERVICES -->
+<div class="view" id="view-services">
+  <section class="about-hero">
+    <div class="wrap">
+      <h1>Our Services</h1>
+      <p>Every thing U need to build your brand under one roof.</p>
+    </div>
+  </section>
+  <section>
+    <div class="wrap grid3">
+      <div class="card service-card"><div class="fill"><div class="icon-tile">✒</div><h3>Graphic Designing</h3><p>Logos, Fliers, Posters, Banners and More.</p></div><button class="btn-outline" data-view="contact">Get a Quote →</button></div>
+      <div class="card service-card"><div class="fill"><div class="icon-tile">🤝</div><h3>Branding</h3><p>Give your business a unique look.</p></div><button class="btn-outline" data-view="contact">Get a Quote →</button></div>
+      <div class="card service-card"><div class="fill"><div class="icon-tile">🖨</div><h3>Printing</h3><p>High quality prints for all your needs.</p></div><button class="btn-outline" data-view="contact">Get a Quote →</button></div>
+      <div class="card service-card"><div class="fill"><div class="icon-tile">👕</div><h3>T-Shirt Branding</h3><p>Design your t-shirt with your logo.</p></div><button class="btn-outline" data-view="contact">Get a Quote →</button></div>
+      <div class="card service-card"><div class="fill"><div class="icon-tile">🔗</div><h3>Binding</h3><p>Project binding, research and more.</p></div><button class="btn-outline" data-view="contact">Get a Quote →</button></div>
+      <div class="card service-card"><div class="fill"><div class="icon-tile">☰</div><h3>More</h3><p>T-Shirt, Stickers, Binding and More.</p></div><button class="btn-outline" data-view="contact">Get a Quote →</button></div>
+    </div>
+  </section>
+</div>
+
+<!-- PORTFOLIO -->
+<div class="view" id="view-portfolio">
+  <section>
+    <div class="wrap">
+      <div class="section-head"><h2>Our Portfolio</h2><p>A look at recent work across logos, print and branding.</p></div>
+      <div class="filters" id="filters">
+        <button class="filter-btn active" data-filter="All">All</button>
+        <button class="filter-btn" data-filter="Logo">Logo</button>
+        <button class="filter-btn" data-filter="Posters">Posters</button>
+        <button class="filter-btn" data-filter="Banners">Banners</button>
+        <button class="filter-btn" data-filter="T-shirt">T-shirt</button>
+        <button class="filter-btn" data-filter="Branding">Branding</button>
+        <button class="filter-btn" data-filter="Print-Designs">Print-Designs</button>
+      </div>
+      <div class="port-grid" id="portGrid">
+        <div class="port-item" data-cat="Logo"><div class="port-thumb" style="background:#fff;color:#141414;">Adobe Creative Hub</div><div class="port-meta"><span class="tag">Logo</span><h4>ACH Logo Mark</h4></div></div>
+        <div class="port-item" data-cat="Posters"><div class="port-thumb" style="background:linear-gradient(135deg,#0033cc,#7aa0ff);color:#fff;">Sneaker</div><div class="port-meta"><span class="tag">Posters</span><h4>Sneaker New Arrival</h4></div></div>
+        <div class="port-item" data-cat="T-shirt"><div class="port-thumb" style="background:#141414;color:#ff5b1f;">Mindset Over Everything</div><div class="port-meta"><span class="tag">T-shirt</span><h4>Motivational Tee Print</h4></div></div>
+        <div class="port-item" data-cat="Branding"><div class="port-thumb" style="background:linear-gradient(135deg,#2ea043,#8fd19e);color:#fff;">Classic Juice</div><div class="port-meta"><span class="tag">Branding</span><h4>Classic Juice Label</h4></div></div>
+        <div class="port-item" data-cat="Banners"><div class="port-thumb" style="background:linear-gradient(135deg,#ff2d95,#ffb3d9);color:#fff;">Nails by Shim</div><div class="port-meta"><span class="tag">Banners</span><h4>Nails by Shim Banner</h4></div></div>
+        <div class="port-item" data-cat="Print-Designs"><div class="port-thumb" style="background:linear-gradient(135deg,#dfe6ff,#0033cc);color:#fff;">Flex The Comfort</div><div class="port-meta"><span class="tag">Print-Designs</span><h4>Crocs Print Design</h4></div></div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- CONTACT -->
+<div class="view" id="view-contact">
+  <section>
+    <div class="wrap">
+      <div class="section-head"><h2>Contact Us</h2><p>Tell us about your project and we'll get back to you.</p></div>
+      <div class="contact-grid">
+        <form class="contact" id="contactForm">
+          <h3 style="margin:0;">Send Us a Message</h3>
+          <div class="field"><label for="name">Full Name*</label><input id="name" required></div>
+          <div class="field"><label for="email">Email Address*</label><input id="email" type="email" required></div>
+          <div class="field"><label for="phone">Phone Number*</label><input id="phone" required></div>
+          <div class="field"><label for="message">Message*</label><textarea id="message" rows="5" required></textarea></div>
+          <div class="field"><label for="location">Location*</label>
+            <select id="location">
+              <option>Kampala</option><option>Kireka</option><option>Kagoma</option><option>Other</option>
+            </select>
+          </div>
+          <button class="cta" type="submit" style="color:#fff;background:var(--blue);">Send Message →</button>
+        </form>
+        <div class="info-side">
+          <div class="card"><h4 style="margin-top:0;">Our Contacts*</h4>
+            <div class="row"><b>📞</b><span>+256 795 296 926</span></div>
+            <div class="row"><b>💬</b><span>+256 795 296 926</span></div>
+            <div class="row"><b>✉️</b><span>sudaicemousa@gmail.com</span></div>
+            <div class="row"><b>📍</b><span>Kagoma, Kampala, Uganda</span></div>
+          </div>
+          <div class="card"><h4 style="margin-top:0;">Follow Us*</h4>
+            <div class="social">
+              <a href="#" aria-label="Facebook">f</a>
+              <a href="#" aria-label="Instagram">ig</a>
+              <a href="#" aria-label="WhatsApp">wa</a>
+              <a href="#" aria-label="TikTok">tt</a>
+              <a href="#" aria-label="YouTube">yt</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="foot-grid">
+      <div>
+        <div class="brand">
+          <svg class="logo-svg" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <path d="M20 15 L20 85 L52 85 C75 85 88 68 88 50 C88 32 75 15 52 15 Z" fill="none" stroke="#5a7bff" stroke-width="7"/>
+            <path d="M34 28 L34 72 L52 72 L74 50 L52 28 Z" fill="#ffffff"/>
+          </svg>
+          <div class="wordmark"><b>DAYCE</b><small>BRANDS</small></div>
+        </div>
+        <p style="color:#9aa2c4;font-size:.88rem;max-width:36ch;margin-top:10px;">Creative design, branding and print — built for Kampala businesses.</p>
+        <div class="social">
+          <a href="#" aria-label="Facebook">f</a>
+          <a href="#" aria-label="Instagram">ig</a>
+          <a href="#" aria-label="Twitter">x</a>
+        </div>
+      </div>
+      <div>
+        <h4>Quick Links</h4>
+        <ul>
+          <li><a data-view="home" href="#">Home</a></li>
+          <li><a data-view="about" href="#">About</a></li>
+          <li><a data-view="services" href="#">Services</a></li>
+          <li><a data-view="portfolio" href="#">Portfolio</a></li>
+          <li><a data-view="contact" href="#">Contact</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Contact</h4>
+        <ul>
+          <li>+256 795 296 926</li>
+          <li>sudaicemousa@gmail.com</li>
+          <li>Kagoma, Kampala, Uganda</li>
+        </ul>
+      </div>
+    </div>
+    <div class="foot-bottom">© 2026 Dayce Brands. All rights reserved.</div>
+  </div>
+</footer>
+
+<div class="toast" id="toast">Redirecting to WhatsApp…</div>
+
+<script>
+(function(){
+  var views = document.querySelectorAll('.view');
+  var navBtns = document.querySelectorAll('nav.links button');
+
+  function showView(name){
+    views.forEach(function(v){ v.classList.toggle('active', v.id === 'view-'+name); });
+    navBtns.forEach(function(b){ b.classList.toggle('active', b.dataset.view === name); });
+    window.scrollTo({top:0, behavior:'smooth'});
+    document.getElementById('navLinks').classList.remove('open');
+  }
+
+  document.querySelectorAll('[data-view]').forEach(function(el){
+    el.addEventListener('click', function(e){
+      e.preventDefault();
+      showView(el.dataset.view);
+    });
+  });
+
+  document.getElementById('navToggle').addEventListener('click', function(){
+    document.getElementById('navLinks').classList.toggle('open');
+  });
+
+  // Portfolio filters
+  document.querySelectorAll('.filter-btn').forEach(function(btn){
+    btn.addEventListener('click', function(){
+      document.querySelectorAll('.filter-btn').forEach(function(b){ b.classList.remove('active'); });
+      btn.classList.add('active');
+      var f = btn.dataset.filter;
+      document.querySelectorAll('.port-item').forEach(function(item){
+        item.classList.toggle('hide', f !== 'All' && item.dataset.cat !== f);
+      });
+    });
+  });
+
+  // Simple search: jumps to a matching view by keyword
+  document.getElementById('searchInput').addEventListener('keydown', function(e){
+    if(e.key !== 'Enter') return;
+    var q = e.target.value.toLowerCase();
+    var map = {home:'home', about:'about', service:'services', portfolio:'portfolio', work:'portfolio', contact:'contact'};
+    var found = Object.keys(map).find(function(k){ return q.includes(k); });
+    if(found) showView(map[found]);
+  });
+
+  // Contact form -> WhatsApp
+  document.getElementById('contactForm').addEventListener('submit', function(e){
+    e.preventDefault();
+    var name = document.getElementById('name').value.trim();
+    var email = document.getElementById('email').value.trim();
+    var phone = document.getElementById('phone').value.trim();
+    var location = document.getElementById('location').value;
+    var message = document.getElementById('message').value.trim();
+
+    var text = "New enquiry from Dayce Brands website%0A" +
+      "Name: " + encodeURIComponent(name) + "%0A" +
+      "Email: " + encodeURIComponent(email) + "%0A" +
+      "Phone: " + encodeURIComponent(phone) + "%0A" +
+      "Location: " + encodeURIComponent(location) + "%0A" +
+      "Message: " + encodeURIComponent(message);
+
+    var url = "https://wa.me/256795296926?text=" + text;
+
+    var toast = document.getElementById('toast');
+    toast.classList.add('show');
+    setTimeout(function(){ toast.classList.remove('show'); }, 2500);
+
+    setTimeout(function(){
+      window.open(url, '_blank');
+    }, 400);
+  });
+})();
+</script>
+</body>
+</html>
